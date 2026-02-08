@@ -1,0 +1,29 @@
+# Node.js
+node_modules/
+dist/
+build/
+.npm
+.env
+
+# Java / Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Misc
+.next/
+out/
+.vercel
+/brain/

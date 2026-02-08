@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Slot - Wireframe</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .modal {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.9em;
+            color: #444;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: #333;
+        }
+
+        .close {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .slots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .slot {
+            padding: 8px;
+            font-size: 0.8em;
+            text-align: center;
+            border: 1px solid #ddd;
+            background: #fafafa;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .slot.selected {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            color: #2196f3;
+            font-weight: bold;
+        }
+
+        .slot.disabled {
+            background: #eee;
+            color: #aaa;
+            cursor: not-allowed;
+        }
+
+        .btn {
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            width: 100%;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
+        .priority-em {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="modal">
+        <div class="header">
+            <h2>New Booking: MRI-1</h2>
+            <span class="close" onclick="history.back()">×</span>
+        </div>
+
+        <form onsubmit="alert('Demo: Booking Submitted!'); return false;">
+            <div class="form-group">
+                <label>Patient ID / Name</label>
+                <input type="text" placeholder="e.g. John Doe (P-1023)" required>
+            </div>
+
+            <div class="form-group">
+                <label>Select Date</label>
+                <input type="date" value="2024-10-24">
+            </div>
+
+            <div class="form-group">
+                <label>Available Slots</label>
+                <div class="slots">
+                    <div class="slot disabled">09:00 - 10:00</div>
+                    <div class="slot disabled">10:00 - 11:00</div>
+                    <div class="slot selected">11:00 - 12:00</div>
+                    <div class="slot">12:00 - 13:00</div>
+                    <div class="slot">13:00 - 14:00</div>
+                    <div class="slot">14:00 - 15:00</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Priority Based Scheduling</label>
+                <select id="priority">
+                    <option value="NORMAL">Normal Request</option>
+                    <option value="URGENT">Urgent (Wait < 2h)</option>
+                    <option value="EMERGENCY" class="priority-em">EMERGENCY (Jump Queue)</option>
+                </select>
+                <small style="color: #666; font-size: 0.8em; display: block; margin-top: 5px;">*Emergency cases require
+                    staff authorization.</small>
+            </div>
+
+            <button type="submit" class="btn">Confirm Booking</button>
+        </form>
+    </div>
+</body>
+
+</html>

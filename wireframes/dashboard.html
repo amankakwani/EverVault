@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Equipment Dashboard - Wireframe</title>
+    <style>
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f4f7fa; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        h1 { margin: 0; color: #2c3e50; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-top: 4px solid #ddd; }
+        .card h2 { margin-top: 0; display: flex; justify-content: space-between; align-items: center; }
+        .status { padding: 4px 10px; border-radius: 12px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; }
+        .status.available { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .status.in-use { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .status.maintenance { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .card-body { margin-top: 15px; }
+        .info-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.95rem; }
+        .label { color: #6c757d; }
+        .btn { display: inline-block; background-color: #007bff; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px; margin-top: 15px; width: 100%; text-align: center; box-sizing: border-box; }
+        .btn:hover { background-color: #0056b3; }
+        .btn.secondary { background-color: #6c757d; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Equipment Dashboard</h1>
+            <div>User: <strong>Dr. Smith (Staff)</strong></div>
+        </header>
+
+        <div class="grid">
+            <!-- Equipment 1 -->
+            <div class="card" style="border-top-color: #28a745;">
+                <h2>MRI-1 <span class="status available">Available</span></h2>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="label">Location:</span> <span>Radiology Room 1</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Next Available:</span> <strong>Now</strong>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Queue Length:</span> <span>0</span>
+                    </div>
+                    <a href="booking.html" class="btn">Book Slot</a>
+                </div>
+            </div>
+
+            <!-- Equipment 2 -->
+            <div class="card" style="border-top-color: #ffc107;">
+                <h2>CT Scan <span class="status in-use">In Use</span></h2>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="label">Location:</span> <span>Radiology Room 2</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Next Available:</span> <strong>10:45 AM</strong>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Queue Length:</span> <span>2 (1 Urgent)</span>
+                    </div>
+                    <a href="queue.html" class="btn secondary">View Queue</a>
+                </div>
+            </div>
+
+            <!-- Equipment 3 -->
+            <div class="card" style="border-top-color: #dc3545;">
+                <h2>Ventilator-1 <span class="status maintenance">Maintenance</span></h2>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="label">Location:</span> <span>ICU Ward A</span>
+                    </div>
+                     <div class="info-row">
+                        <span class="label">Status:</span> <span>Scheduled Maintenance</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">ETA:</span> <span>2 hours</span>
+                    </div>
+                    <button class="btn secondary" disabled style="opacity: 0.6; cursor: not-allowed;">Unavailable</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

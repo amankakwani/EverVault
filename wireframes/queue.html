@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queue Management - Wireframe</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        h1 {
+            margin: 0;
+            color: #495057;
+        }
+
+        .status-badge {
+            background: #e2e3e5;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        th {
+            background-color: #f1f3f5;
+            color: #495057;
+            font-weight: 600;
+        }
+
+        .tag {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .tag.emergency {
+            background-color: #ffebee;
+            color: #dc3545;
+            border: 1px solid #ffcdd2;
+            animation: pulse 2s infinite;
+        }
+
+        .tag.urgent {
+            background-color: #fff3e0;
+            color: #fd7e14;
+            border: 1px solid #ffe0b2;
+        }
+
+        .tag.normal {
+            background-color: #e3f2fd;
+            color: #0d6efd;
+            border: 1px solid #bbdefb;
+        }
+
+        .actions {
+            white-space: nowrap;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .btn-call {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-skip {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-serve {
+            background-color: #007bff;
+            color: white;
+            display: none;
+        }
+
+        /* Simplified */
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>Queue: MRI-1</h1>
+                <span class="status-badge">Current Status: <strong>In Use</strong></span>
+            </div>
+            <a href="dashboard.html" style="text-decoration: none; color: #007bff;">&larr; Back to Dashboard</a>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Patient Name</th>
+                    <th>Priority</th>
+                    <th>Wait Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Row 1: Emergency (Top Priority) -->
+                <tr style="background-color: #fff5f5;">
+                    <td><strong>1</strong></td>
+                    <td><strong>Sarah Connor (P-998)</strong> <br><small style="color:red">Critical Condition</small>
+                    </td>
+                    <td><span class="tag emergency">EMERGENCY</span></td>
+                    <td>5 mins</td>
+                    <td class="actions">
+                        <button class="btn-sm btn-call" onclick="alert('Calling Patient: Sarah Connor')">Call
+                            Next</button>
+                    </td>
+                </tr>
+
+                <!-- Row 2: Urgent -->
+                <tr>
+                    <td>2</td>
+                    <td>John Smith (P-104)</td>
+                    <td><span class="tag urgent">URGENT</span></td>
+                    <td>20 mins</td>
+                    <td class="actions">
+                        <button class="btn-sm btn-skip">Skip</button>
+                    </td>
+                </tr>
+
+                <!-- Row 3: Normal -->
+                <tr>
+                    <td>3</td>
+                    <td>Mike Ross (P-552)</td>
+                    <td><span class="tag normal">NORMAL</span></td>
+                    <td>45 mins</td>
+                    <td class="actions">
+                        <button class="btn-sm btn-skip">Skip</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="margin-top: 20px; font-size: 0.9em; color: #666; font-style: italic;">
+            * Auto-refreshing every 10 seconds...
+        </div>
+    </div>
+</body>
+
+</html>
