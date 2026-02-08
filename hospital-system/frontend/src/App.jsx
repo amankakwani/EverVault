@@ -15,8 +15,9 @@ function App() {
   const [requestedPriority, setRequestedPriority] = useState('NORMAL');
   const [slotTime, setSlotTime] = useState('');
 
-  // Auto-detect environment
-  const API_BASE = window.location.port === '5173' ? 'http://localhost:8080' : '';
+  // Auto-detect environment: If running on a dev port (like 5173 or 5174), point to backend 8080.
+  // If running on 8080 (production build), use relative paths.
+  const API_BASE = (window.location.port && window.location.port !== '8080') ? 'http://localhost:8080' : '';
 
   // Load Data
   useEffect(() => {
@@ -170,22 +171,23 @@ function App() {
                 <div className="section">
                   <h3>Available Facilities</h3>
                   <div className="eq-grid">
-                    {equipment.map(eq => (
-                      <div
-                        key={eq.id}
-                        className={`eq-card ${selectedEquipment?.id === eq.id ? 'selected' : ''}`}
-                        onClick={() => setSelectedEquipment(eq)}
-                      >
-                        <span className={`status-indicator status-${eq.status.toLowerCase()}`}>
-                          {eq.status.replace('_', ' ')}
-                        </span>
-                        <h3>{eq.name}</h3>
-                        <div className="eq-meta">
-                          <span>⏳ Next: <strong>{eq.nextAvailable}</strong></span>
-                          <span>👥 Wait: <strong>{eq.queueLength}</strong></span>
+                    {equipment.length === 0 ? <p>Loading facilities... (Check if backend is on 8080)</p> :
+                      equipment.map(eq => (
+                        <div
+                          key={eq.id}
+                          className={`eq-card ${selectedEquipment?.id === eq.id ? 'selected' : ''}`}
+                          onClick={() => setSelectedEquipment(eq)}
+                        >
+                          <span className={`status-indicator status-${eq.status.toLowerCase()}`}>
+                            {eq.status.replace('_', ' ')}
+                          </span>
+                          <h3>{eq.name}</h3>
+                          <div className="eq-meta">
+                            <span>⏳ Next: <strong>{eq.nextAvailable}</strong></span>
+                            <span>👥 Wait: <strong>{eq.queueLength}</strong></span>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
                   </div>
                 </div>
 
