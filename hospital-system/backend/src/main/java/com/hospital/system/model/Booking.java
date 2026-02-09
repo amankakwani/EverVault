@@ -26,4 +26,14 @@ public class Booking {
     private String status;   // PENDING, CONFIRMED
 
     private LocalDateTime bookingTime;
+
+    // Custom constructor for DataInitializer
+    public Booking(Long id, String patientName, Long equipmentId, Priority priority, LocalDateTime bookingTime) {
+        this.id = id;
+        this.patientName = patientName;
+        this.equipmentId = equipmentId;
+        this.priority = priority;
+        this.bookingTime = bookingTime;
+        this.status = "CONFIRMED"; // Default for initial data
+    }
 }
