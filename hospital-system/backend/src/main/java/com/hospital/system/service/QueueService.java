@@ -6,6 +6,9 @@ import com.hospital.system.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hospital.system.model.Equipment;
+import com.hospital.system.model.EquipmentStatus;
+import com.hospital.system.repository.EquipmentRepository;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -16,6 +19,9 @@ public class QueueService {
 
     @Autowired
     private BookingRepository bookingRepository;
+
+    @Autowired
+    private EquipmentRepository equipmentRepository;
 
     public Booking createBookingRequest(Booking booking) {
         if (booking.getBookingTime() == null) {
@@ -68,7 +74,47 @@ public class QueueService {
             return null;
         }
         Booking nextPatient = queue.get(0);
-        bookingRepository.delete(nextPatient); // Remove from queue (served)
-        return nextPatient;
+        
+        // Update machine status
+        Equipment eq = equipmentRepository.findById(equipmentId).orElse(null);
+        if (eq != null) {
+            eq.setStatus(EquipmentStatus.IN_USE);
+            equipmentRepository.save(eq);
+        }
+
+        // We don't delete yet, we mark as IN_PROGRESS or just let the client handle it.
+        // But for this simple demo, we'll follow the "markAsServed" pattern.
+        // To keep the queue logic clean, maybe we mark it as "PROCESS" or something.
+        // Actually, let's just mark it as "IN_USE" status for the booking too.
+        nextPatient.setStatus("IN_USE");
+        return bookingRepository.save(nextPatient);
+    }
+
+    public String calculateNextSlot(Long equipmentId) {
+        Equipment eq = equipmentRepository.findById(equipmentId).orElse(null);
+        if (eq == null) return "Unknown";
+        if (eq.getStatus() == EquipmentStatus.MAINTENANCE) return "Under Repair";
+
+        List<Booking> queue = getQueueForEquipment(equipmentId);
+        if (queue.isEmpty()) return "Now";
+
+        // Simple math: Now + (Queue Size * Machine Duration)
+        LocalDateTime next = LocalDateTime.now().plusMinutes(queue.size() * (long) eq.getBufferTime());
+        return next.toLocalTime().toString().substring(0, 5); // HH:mm format
+    }
+
+    public void markAsServed(Long bookingId) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new RuntimeException("Booking not found"));
+        
+        booking.setStatus("SERVED");
+        bookingRepository.save(booking);
+
+        // Reset equipment status
+        Equipment eq = equipmentRepository.findById(booking.getEquipmentId()).orElse(null);
+        if (eq != null) {
+            eq.setStatus(EquipmentStatus.AVAILABLE);
+            equipmentRepository.save(eq);
+        }
     }
 }
